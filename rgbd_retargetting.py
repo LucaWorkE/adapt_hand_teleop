@@ -1274,8 +1274,16 @@ def start_hand_tracking(queue: multiprocessing.Queue, depth_queue: multiprocessi
             # Use intrinsics_data from the depth package instead of shared storage
             intrinsics_data = current_intrinsics_data
             
-            direct_angles = calculate_direct_finger_angles_depth_enhanced(joint_pos, keypoint_2d, current_depth_frame, intrinsics_data)
-            thumb_angles = calculate_thumb_joint_angles_depth_enhanced(joint_pos, keypoint_2d, current_depth_frame, intrinsics_data)
+            # Use depth enhancement if depth frame is available, remove the variable rgbd  and uncomment ####current_depth_frame is not None and camera_intrinsics.intrinsics_valid:
+            # Falls back to standard calculations since depth is not great as of now
+            rgbd = False
+            if rgbd: ####current_depth_frame is not None and camera_intrinsics.intrinsics_valid:
+                direct_angles = calculate_direct_finger_angles_depth_enhanced(joint_pos, keypoint_2d, current_depth_frame)
+                thumb_angles = calculate_thumb_joint_angles_depth_enhanced(joint_pos, keypoint_2d, current_depth_frame)
+            else:
+                # Fallback to standard MediaPipe-only calculations
+                direct_angles = calculate_direct_finger_angles(joint_pos)
+                thumb_angles = calculate_thumb_joint_angles(joint_pos)
             
             intel_confidence = hand_confidence
             
@@ -1643,3 +1651,4 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     main(args.hand_type, args.camera_host, args.camera_port)
+
