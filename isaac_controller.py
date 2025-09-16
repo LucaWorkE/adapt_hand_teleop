@@ -564,15 +564,15 @@ def map_rgb_finger_angles_to_isaac_joints(mcp_spread_deg, mcp_flex_deg, pip_flex
         # Map MCP flexion: +120° to +165° range (165° = straight, 120° = closed)
         flex_normalized = (165.0 - mcp_flex_deg) / (165.0 - 120.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        mcp_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Index_MCP"] = np.clip(mcp_joint_value, 0.0, 200)
+        mcp_joint_value = flex_normalized * (-1.57)  # 0 to -1.57 rad
+        mapped_joints["Index_MCP"] = np.clip(mcp_joint_value, -1.57, 0.0)
     
     if pip_flex_deg is not None:
         # Map PIP flexion: +120° to +165° range (165° = straight, 120° = fully closed)
         flex_normalized = (165.0 - pip_flex_deg) / (165.0 - 120.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        pip_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Index_PIP"] = np.clip(pip_joint_value, 0.0, 200)
+        pip_joint_value = flex_normalized * (-1.15)  # 0 to -1.15 rad
+        mapped_joints["Index_PIP"] = np.clip(pip_joint_value, -1.15, 0.0)
     
     # Fix DIP at straight position
     mapped_joints["Index_DIP"] = -1.044  # Fixed at straight position
@@ -590,15 +590,15 @@ def map_rgb_middle_finger_angles_to_isaac_joints(mcp_flex_deg, pip_flex_deg):
         # Map MCP flexion: 150° (straight) to 110° (closed)
         flex_normalized = (150.0 - mcp_flex_deg) / (150.0 - 110.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        mcp_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Middle_MCP"] = np.clip(mcp_joint_value, 0.0, 200)
+        mcp_joint_value = flex_normalized * (-1.57)  # 0 to -1.57 rad
+        mapped_joints["Middle_MCP"] = np.clip(mcp_joint_value, -1.57, 0.0)
     
     if pip_flex_deg is not None:
         # Map PIP flexion: 175° (straight) to 100° (closed)
         flex_normalized = (175.0 - pip_flex_deg) / (175.0 - 100.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        pip_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Middle_PIP"] = np.clip(pip_joint_value, 0.0, 200)
+        pip_joint_value = flex_normalized * (-1.15)  # 0 to -1.15 rad
+        mapped_joints["Middle_PIP"] = np.clip(pip_joint_value, -1.15, 0.0)
     
     # Apply smoothing and safety checks
     smoothed_joints = apply_rgb_joint_smoothing_and_safety(mapped_joints, "finger")
@@ -613,16 +613,16 @@ def map_rgb_ring_finger_angles_to_isaac_joints(mcp_flex_deg, pip_flex_deg):
         # Map MCP flexion: 130° (straight) to 110° (closed)
         flex_normalized = (130.0 - mcp_flex_deg) / (130.0 - 110.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        mcp_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Ring_MCP"] = np.clip(mcp_joint_value, 0.0, 200)
+        mcp_joint_value = flex_normalized * (-1.57)  # 0 to -1.57 rad
+        mapped_joints["Ring_MCP"] = np.clip(mcp_joint_value, -1.57, 0.0)
     
     if pip_flex_deg is not None:
         # Map PIP flexion: 170° (straight) to 100° (closed)
         flex_normalized = (170.0 - pip_flex_deg) / (170.0 - 100.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        pip_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Ring_PIP"] = np.clip(mcp_joint_value, 0.0, 200)
-    
+        pip_joint_value = flex_normalized * (-1.15)  # 0 to -1.15 rad
+        mapped_joints["Ring_PIP"] = np.clip(pip_joint_value, -1.15, 0.0)
+
     # Apply smoothing and safety checks
     smoothed_joints = apply_rgb_joint_smoothing_and_safety(mapped_joints, "finger")
     
@@ -636,15 +636,15 @@ def map_rgb_pinky_finger_angles_to_isaac_joints(mcp_flex_deg, pip_flex_deg):
         # Map MCP flexion: 140° (straight) to 100° (closed)
         flex_normalized = (140.0 - mcp_flex_deg) / (140.0 - 100.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        mcp_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Pinky_MCP"] = np.clip(mcp_joint_value, 0.0, 200)
+        mcp_joint_value = flex_normalized * (-1.57)  # 0 to -1.57 rad
+        mapped_joints["Pinky_MCP"] = np.clip(mcp_joint_value, -1.57, 0.0)
     
     if pip_flex_deg is not None:
         # Map PIP flexion: 170° (straight) to 110° (closed)
         flex_normalized = (170.0 - pip_flex_deg) / (170.0 - 110.0)  # 0 = straight, 1 = closed
         flex_normalized = np.clip(flex_normalized, 0.0, 1.0)
-        pip_joint_value = flex_normalized * (200)  # 0 to 200 rad
-        mapped_joints["Pinky_PIP"] = np.clip(mcp_joint_value, 0.0, 200)
+        pip_joint_value = flex_normalized * (-1.15)  # 0 to -1.15 rad
+        mapped_joints["Pinky_PIP"] = np.clip(pip_joint_value, -1.15, 0.0)
     
     # Apply smoothing and safety checks
     smoothed_joints = apply_rgb_joint_smoothing_and_safety(mapped_joints, "finger")
@@ -659,23 +659,21 @@ def map_rgb_thumb_angles_to_isaac_joints(cmc1_deg, cmc2_deg, mcp_deg, ip_deg):
         # Map CMC1: 45° (straight) = 1.0, 37° (closed) = 0.0
         cmc1_clamped = max(37.0, min(45.0, cmc1_deg))
         cmc1_normalized = (cmc1_clamped - 37.0) / (45.0 - 37.0)  # 0 = closed, 1 = straight
-        cmc1_joint_value = cmc2_normalized * (200)  # 0.0 to 200 range
-        mapped_joints["Thumb_CMC1"] = np.clip(cmc1_joint_value, 0.0, 200)
         mapped_joints["Thumb_CMC1"] = cmc1_normalized  # 0.0 to 1.0 range
     
     if cmc2_deg is not None:
         # Map CMC2: 170° (left) = 0.0, 150° (right) = -0.7
         cmc2_clamped = max(150.0, min(170.0, cmc2_deg))
         cmc2_normalized = (170.0 - cmc2_clamped) / (170.0 - 150.0)  # 0 = left, 1 = right
-        cmc2_joint_value = cmc2_normalized * (200)  # 0.0 to 200 range
-        mapped_joints["Thumb_CMC2"] = np.clip(cmc2_joint_value, 0.0, 200)
+        cmc2_joint_value = cmc2_normalized * (-0.7)  # 0.0 to -0.7 range
+        mapped_joints["Thumb_CMC2"] = np.clip(cmc2_joint_value, -0.7, 0.0)
     
     if ip_deg is not None:
         # Map MCP using IP angles: 170° (straight) = 0.0, 130° (closed) = -1.9
         ip_clamped = max(130.0, min(170.0, ip_deg))
         ip_normalized = (170.0 - ip_clamped) / (170.0 - 130.0)  # 0 = straight, 1 = closed
-        mcp_joint_value = ip_normalized * (200)  # 0.0 to 200 range
-        mapped_joints["Thumb_MCP"] = np.clip(mcp_joint_value, 0.0, 200)
+        mcp_joint_value = ip_normalized * (-1.9)  # 0.0 to -1.9 range
+        mapped_joints["Thumb_MCP"] = np.clip(mcp_joint_value, -1.9, 0.0)
     
     # Apply smoothing and safety checks with higher smoothing for thumb
     smoothed_joints = apply_rgb_joint_smoothing_and_safety(mapped_joints, "thumb")
